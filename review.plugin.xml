@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pluggable type="plugin">
+	<name>Review</name>
+	<license url="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Software License 2.0</license>
+	<author url="http://asymptomatic.net/">Owen Winkler</author>
+	<version>1.0</version>
+	<url>http://habariproject.org/</url>
+	<description><![CDATA[Adds a basic review post type.]]></description>
+	<copyright>2012</copyright>
+	<guid>70d90fb8-e517-4f31-9edc-7ab91a94ca9a</guid>
+</pluggable>
+ 
