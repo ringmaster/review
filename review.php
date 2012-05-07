@@ -13,6 +13,8 @@
 
 	<?php echo $content->content_out; ?>
 
+	<?php echo $content->dcrowzip; ?>
+
 	<?php if($request->display_entry): ?>
 	<section class="comments" itemprop="comment">
 		<h1 id="comments">Comments</h1>

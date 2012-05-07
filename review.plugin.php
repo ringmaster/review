@@ -40,6 +40,8 @@ class ReviewPlugin extends Plugin
 		$form->insert('content', new FormControlSelect('rating', $post, 'Rating', $ratings, 'admincontrol_select'));
 
 		$form->insert('content', new FormControlText('asin', $post, 'ASIN', 'admincontrol_text'));
+
+		$form->insert('content', new FormControlText('dcrowzip', $post, 'Data Crow Zip', 'admincontrol_text'));
 	}
 
 	public function filter_post_rating($rating, $post)
@@ -56,6 +58,15 @@ class ReviewPlugin extends Plugin
 			$asin = $post->info->asin;
 		}
 		return $asin;
+	}
+
+	public function filter_post_dcrowzip($dcrowzip, $post)
+	{
+	     if($post->info->dcrowzip != '')
+	     {
+	        $dcrowzip = $post->info->dcrowzip;
+             }
+             return $dcrowzip;
 	}
 
 	public function filter_rewrite_rules( $rules )
