@@ -72,7 +72,7 @@ class ReviewPlugin extends Plugin
 	public function filter_rewrite_rules( $rules )
 	{
 		$rules[] = new RewriteRule( array(
-			'name' => 'display_podcasts',
+			'name' => 'display_reviews',
 			'parse_regex' => '%^reviews(?:/page/(?P<page>\d+))?/?$%i',
 			'build_str' => 'reviews(/page/{$page})',
 			'handler' => 'PluginHandler',
