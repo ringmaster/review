@@ -6,7 +6,7 @@
 	</div>
 
 	<header>
-		<h2>Book Review</h2>
+		<h2>Review</h2>
 		<h1><a href="/az<?php echo $content->asin; ?>"><?php echo $content->title_out; ?></a></h1>
 		<p>Rating: <?php echo $content->rating; ?></p>
 	</header>
