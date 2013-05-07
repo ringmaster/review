@@ -95,6 +95,11 @@ class ReviewPlugin extends Plugin
 		return $asin;
 	}
 
+	/**
+	 * Add a rewrite rule to display multiple reviews
+	 * @param array $rules The existing array of RewriteRules
+	 * @return array The augmented array of RewriteRules
+	 */
 	public function filter_rewrite_rules( $rules )
 	{
 		$rules[] = new RewriteRule( array(
@@ -111,6 +116,11 @@ class ReviewPlugin extends Plugin
 		return $rules;
 	}
 
+	/**
+	 * Executes to handle the display of reviews from the RewriteRule
+	 * @param PluginHandler $handler The handler that is handling this request
+	 * @return null|boolean Null on success, false on failure, counterintuitive always
+	 */
 	public function action_plugin_act_display_reviews( $handler )
 	{
 		$paramarray['fallback'] = array(
