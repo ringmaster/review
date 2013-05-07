@@ -1,17 +1,33 @@
 <?php
 
+namespace Habari;
+
 class ReviewPlugin extends Plugin
 {
-	public function action_plugin_activation( $plugin_file )
+	/**
+	 * Execute when plugin is activated
+	 */
+	public function action_plugin_activation()
 	{
+		// Add the new post type "review"
 		Post::add_new_type( 'review' );
 	}
 
-	public function action_plugin_deactivation( $plugin_file )
+	/**
+	 * Execute when plugin is deactivated
+	 */
+	public function action_plugin_deactivation( )
 	{
+		// deactivate the "review" post type
 		Post::deactivate_post_type( 'review' );
 	}
 
+	/**
+	 * Provide singular and plural translations for the "review" post type
+	 * @param string $type The type that Habari seeks the display name for
+	 * @param string $foruse The intended use of the display name
+	 * @return string The singular or plural translation of "review" if requested
+	 */
 	public function filter_post_type_display($type, $foruse) 
 	{ 
 		$names = array( 
@@ -23,11 +39,20 @@ class ReviewPlugin extends Plugin
 		return isset($names[$type][$foruse]) ? $names[$type][$foruse] : $type; 
 	}
 
+	/**
+	 * Execute when the plugin is initialized
+	 */
 	public function action_init()
 	{
+		// Make the default review.php template available to the theme system from this directory
 		$this->add_template('review', dirname($this->get_file()) . '/review.php');
 	}
 
+	/**
+	 * Alter the publication form for posts of type "review"
+	 * @param FormUI $form The publication form
+	 * @param Post $post The post being edited
+	 */
 	public function action_form_publish_review( $form, $post )
 	{
 		$ratings = array(
@@ -37,11 +62,17 @@ class ReviewPlugin extends Plugin
 			4 => '4 / 5',
 			5 => '5 / 5',
 		);
-		$form->insert('content', new FormControlSelect('rating', $post, 'Rating', $ratings, 'admincontrol_select'));
+		$form->insert('content', FormControlSelect::create('rating', $post)->set_options($ratings)->label( _t('Rating', 'review')));
 
-		$form->insert('content', new FormControlText('asin', $post, 'ASIN', 'admincontrol_text'));
+		$form->insert('content', FormControlText::create('asin', $post)->label( _t('ASIN', 'review')));
 	}
 
+	/**
+	 * Make the ->rating field available directly on the post object
+	 * @param integer $rating The incoming rating value (usually 0)
+	 * @param Post $post The rated post
+	 * @return integer The rating value
+	 */
 	public function filter_post_rating($rating, $post)
 	{
 		if(intval($post->info->rating) != 0) {
@@ -50,6 +81,12 @@ class ReviewPlugin extends Plugin
 		return $rating;
 	}
 
+	/**
+	 * Make the ->asin field available directly on the post object
+	 * @param string $asin The incoming asin value (usually '')
+	 * @param Post $post The rated post
+	 * @return string The ASIN value
+	 */
 	public function filter_post_asin($asin, $post)
 	{
 		if($post->info->asin != '') {
